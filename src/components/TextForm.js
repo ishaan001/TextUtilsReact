@@ -45,62 +45,42 @@ export default function TextForm(props) {
           <textarea
             className="form-control"
             id="myBox"
-            rows="8"
+            rows="4"
             value={text}
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === "light" ? "white" : "grey",
-              color: props.mode === "light" ? "grey" : "white",
+              backgroundColor: props.mode === "light" ? "white" : "#cecccc",
+              color: props.mode === "light" ? "grey" : "#000000",
             }}
           ></textarea>
         </div>
-        <button onClick={handleUpClick} className="btn btn-primary mx-2">
-          convert to upperCase
-        </button>
-        <button onClick={handleLowerClick} className="btn btn-primary ">
-          convert to lowercase
-        </button>
-        <button onClick={handleClearClick} className="btn btn-primary mx-2">
-          clear Text
-        </button>
-        <button
-          onClick={() => {
+        <button disabled = {text.length === 0} onClick={handleUpClick} className="btn btn-primary mx-2 my-1">convert to upperCase</button>
+        <button disabled = {text.length === 0} onClick={handleLowerClick} className="btn btn-primary mx-2 my-1">convert to lowercase</button>
+        <button disabled = {text.length === 0} onClick={handleClearClick} className="btn btn-primary mx-2 my-1">clear Text</button>
+        <button disabled = {text.length === 0} onClick={() => {
             const text = document.getElementById("myBox");
             text.select();
             navigator.clipboard.writeText(text.value);
             props.showAlert("Copied to Clipboard !", "success");
           }}
-          className="btn btn-primary mx-2"
-        >
-          Copy Text
-        </button>
-        <button
+          className="btn btn-primary mx-2 my-1" >
+          Copy Text </button>
+        <button disabled = {text.length === 0}
           onClick={() => {
             //regex to remove the spaces more than 1
             setText(text.split(/[ ]+/).join(" "));
             props.showAlert("space removed", "success");
           }}
-          className="btn btn-primary mx-2"
-        >
-          Remove Extra Spaces
-        </button>
+          className="btn btn-primary mx-2 my-1" >
+          Remove Extra Spaces</button>
       </div>
-      <div
-        className="container my-3"
-        style={{ color: props.mode === "light" ? "grey" : "white" }}
-      >
+      <div className="container my-3" style={{ color: props.mode === "light" ? "grey" : "white" }} >
         <h2>Your Text Summary</h2>
         <p> Words : {wordsHandles()} Chatacter : {text.length}</p>
-        <p>{0.008 * text.split(" ").length} minutes to read the text</p>
-        <p>
-          Number of Different Words : {[...new Set(text.split(" "))].length}
-        </p>
+        <p>{0.008 * wordsHandles()} minutes to read the text</p>
+        <p> Number of Different Words : {[...new Set(text.split(" ").filter((e) => {return e.length > 0}))].length} </p>
         <h2>Preview :</h2>
-        <p>
-          {text.length > 0
-            ? text
-            : "Enter something on text box above to preview it here"}
-        </p>
+        <p> {text.length > 0 ? text : "Enter something on text box above to preview it here"} </p>
       </div>
     </>
   );

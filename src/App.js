@@ -45,7 +45,7 @@ function App() {
       <div className="container my-3">
         <Routes>
            {/*use exact below as it does the exact matching of the path otherwise react will do partial matching*/}
-          <Route exact path="/About" element={ <About />} />
+          <Route exact path="/About" element={ <About mode={mode}/>} />
           <Route exact path="/" element={<TextForm heading="Enter the text to analyze below" mode={mode} showAlert={showAlert}/>}/>
         </Routes>
       </div>
