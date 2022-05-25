@@ -24,7 +24,7 @@ export default function TextForm(props) {
   };
 
   const wordsHandles = () => {
-    const myArray = text.split(" ");
+    const myArray = text.split(/\s+/);
     return myArray.filter((e) => { 
       if (e !== "") 
         return e;
@@ -79,7 +79,8 @@ export default function TextForm(props) {
         <h2>Your Text Summary</h2>
         <p> Words : {wordsHandles()} Chatacter : {text.length}</p>
         <p>{0.008 * wordsHandles()} minutes to read the text</p>
-        <p> Number of Different Words : {[...new Set(text.split(" ").filter((e) => {return e.length > 0}))].length} </p>
+        {/*split is used via regex where \s+ means split by space and new line also*/}
+        <p> Number of Different Words : {[...new Set(text.split(/\s+/).filter((e) => {return e.length > 0}))].length} </p>
         <h2>Preview :</h2>
         <p> {text.length > 0 ? text : "Enter something on text box above to preview it here"} </p>
       </div>
