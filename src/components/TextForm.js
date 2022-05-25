@@ -60,6 +60,7 @@ export default function TextForm(props) {
         <button disabled = {text.length === 0} onClick={() => {
             const text = document.getElementById("myBox");
             text.select();
+            document.getSelection().removeAllRanges();
             navigator.clipboard.writeText(text.value);
             props.showAlert("Copied to Clipboard !", "success");
           }}
